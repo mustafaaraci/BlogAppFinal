@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using BlogApp.Data.Abstract;
 using BlogApp.Data.Concrete.EfCore;
 using BlogApp.Entity;
-using BlogApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -29,6 +29,7 @@ namespace BlogApp.Controllers
        
         public IActionResult Index(string tag)
         {
+            var claims = User.Claims;
             //var model = _context.Posts.ToList();
             var posts = _postrepository.Posts;
             if(!string.IsNullOrEmpty(tag)){
@@ -57,20 +58,27 @@ namespace BlogApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddComment(int PostId, string UserName, string Text, string Url)
+        public JsonResult AddComment(int PostId, string Text)
         {
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var username = User.FindFirstValue(ClaimTypes.Name);
+            var avatar = User.FindFirstValue(ClaimTypes.UserData);
+
             var entity = new Comment {
                 Text = Text,
                 PublishedOn = DateTime.Now,
                 PostId = PostId,
-                User = new User {UserName = UserName, Image = "avatar.jpg"}
+                UserId = int.Parse(userId ?? "")
             };
             _commentRepository.CreateComment(entity);
-            return Redirect("/posts/details/" + Url);
+            return Json(new {
+                username,
+                Text,
+                entity.PublishedOn,
+                avatar
+            });
         }
-
-
-       
 
     }
 }

@@ -132,3 +132,4 @@ C:\Users\Likite\Desktop\onemli\zhoca-MVC-2\BlogAppFinal\obj\Debug\net7.0\refint\
 C:\Users\Likite\Desktop\onemli\zhoca-MVC-2\BlogAppFinal\obj\Debug\net7.0\BlogApp.pdb
 C:\Users\Likite\Desktop\onemli\zhoca-MVC-2\BlogAppFinal\obj\Debug\net7.0\BlogApp.genruntimeconfig.cache
 C:\Users\Likite\Desktop\onemli\zhoca-MVC-2\BlogAppFinal\obj\Debug\net7.0\ref\BlogApp.dll
+C:\Users\Likite\Desktop\onemli\zhoca-MVC-2\BlogAppFinal\obj\Debug\net7.0\BlogApp.sourcelink.json
